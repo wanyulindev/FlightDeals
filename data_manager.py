@@ -19,6 +19,7 @@ class DataManager:
         # self.get_response = requests.get(self.url, headers=self.headers)
         # self.get_data()
         self.data = {}
+        self.data_count = 0
 
     # Instead creating two similar function,
     # why not create a function but can be used as *arg:
@@ -30,12 +31,27 @@ class DataManager:
     #     # return self.get_response.text
     #     # print(self.get_response.json())
 
-    def data_function(self, func):
-        response = func(self.url, headers=self.headers)
+    def data_function(self, func, url):
+        response = func(url, headers=self.headers)
         self.data = response.json()
         return pprint(self.data)
 
-    def 
+    def update_data(self):
+        pass
+
+    def delete_data(self):
+        # for _ in self.data["prices"]:
+        #     self.data_count += 1
+        self.data_count = self.data[0][-1]["id"]
+        print(self.data_count)
+        # for _ in range(self.data_count):
+        #     self.data_function(func=requests.delete, url=f"{self.url}/{self.data_count}")
+        #     if self.data_count > 1:
+        #         self.data_count -= 1
+        # return pprint(self.data)
+
+        self.data_function(func=requests.delete, url=f"{self.url}/{self.data_count}")
+
 
 
 
