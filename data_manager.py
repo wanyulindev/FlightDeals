@@ -20,15 +20,23 @@ class DataManager:
         # self.get_data()
         self.data = {}
 
-    def get_data(self):
-        # get_response = requests.get(ENDPOINT, headers=HEADERS)
-        get_response = requests.get(self.url, headers=self.headers)
-        self.data = get_response.json()
-        return pprint(self.data)
-        # return self.get_response.text
-        # print(self.get_response.json())
+    # Instead creating two similar function,
+    # why not create a function but can be used as *arg:
+    # def get_data(self):
+    #     # get_response = requests.get(ENDPOINT, headers=HEADERS)
+    #     get_response = requests.get(self.url, headers=self.headers)
+    #     self.data = get_response.json()
+    #     return pprint(self.data)
+    #     # return self.get_response.text
+    #     # print(self.get_response.json())
 
-        
+    def data_function(self, func):
+        response = func(self.url, headers=self.headers)
+        self.data = response.json()
+        return pprint(self.data)
+
+    def 
+
 
 
 

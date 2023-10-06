@@ -1,12 +1,21 @@
 #This file will need to use the DataManager,FlightSearch, FlightData,
 # NotificationManager classes to achieve the program requirements.
+import requests
 
 from data_manager import DataManager
 
+# Retrieve origin data from my Google sheet:
 data_manager = DataManager()
-print(data_manager.get_data())
+print(data_manager.data_function(requests.get))
 # sheet_data = data_manager.get_data()
 # print(sheet_data)
+
+# Update datas to fic my require:
+
+
+
+
+
 
 
 
