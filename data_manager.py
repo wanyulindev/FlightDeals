@@ -11,11 +11,11 @@ from pprint import pprint
 class DataManager:
     #This class is responsible for talking to the Google Sheet.
     def __init__(self):
-        self.auth = os.environ.get("SHEETY_AUTH")
+        # self.auth = os.environ.get("SHEETY_AUTH")
         self.url = os.environ.get("SHEETY_URL")
-        self.headers = {
-            "Authorization": self.auth
-        }
+        # self.headers = {
+        #     "Authorization": self.auth
+        # }
         # self.get_response = requests.get(self.url, headers=self.headers)
         # self.get_data()
         self.data = {}
@@ -32,7 +32,7 @@ class DataManager:
     #     # print(self.get_response.json())
 
     def data_function(self, func, url):
-        response = func(url, headers=self.headers)
+        response = func(url)
         self.data = response.json()
         return pprint(self.data)
 
@@ -50,7 +50,7 @@ class DataManager:
         #         self.data_count -= 1
         # return pprint(self.data)
 
-        self.data_function(func=requests.delete, url=f"{self.url}/{self.data_count}")
+        # self.data_function(func=requests.delete, url=f"{self.url}/{self.data_count}")
 
 
 
