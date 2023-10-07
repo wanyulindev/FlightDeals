@@ -34,16 +34,17 @@ class DataManager:
     def data_function(self, func, url):
         response = func(url)
         self.data = response.json()
+        self.data_count = self.data[0][-1]["id"]
         return pprint(self.data)
 
     def update_data(self):
         pass
 
-    def delete_data(self):
+    # def delete_data(self):
         # for _ in self.data["prices"]:
         #     self.data_count += 1
-        self.data_count = self.data[0][-1]["id"]
-        print(self.data_count)
+        # self.data_count = self.data[0][-1]["id"]
+        # print(self.data_count)
         # for _ in range(self.data_count):
         #     self.data_function(func=requests.delete, url=f"{self.url}/{self.data_count}")
         #     if self.data_count > 1:

@@ -12,7 +12,7 @@ print(data_manager.data_function(func=requests.get, url=data_manager.url))
 
 # Delete datas I don't need to fit with my desire:
 # print(data_manager.delete_data)
-print(data_manager.data_function(func=requests.delete, url=f"{data_manager.url}/8"))
+print(data_manager.data_function(func=requests.delete, url=f"{data_manager.url}/{data_manager.data_count}"))
 
 
 
