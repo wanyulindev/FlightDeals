@@ -57,6 +57,6 @@ class DataManager:
 
 
 
-
+# Submitting commit! 2023/10/08
 # It's time to review OOP to make it more clear idea to my knowledge!
 # (151)
