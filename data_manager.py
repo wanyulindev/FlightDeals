@@ -30,6 +30,7 @@ class DataManager:
     #     # return self.get_response.text
     #     # print(self.get_response.json())
 
+    # Let's separate these two function and maintain codes as clean codes:
     def data_function(self, func, url):
         response = func(url)
         if response.status_code == 200:
