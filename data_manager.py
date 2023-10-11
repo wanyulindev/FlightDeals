@@ -31,21 +31,38 @@ class DataManager:
     #     # print(self.get_response.json())
 
     # Let's separate these two function and maintain codes as clean codes:
+    # def data_function(self, func, url):
+    #     response = func(url)
+    #     if response.status_code == 200:
+    #         self.data = response.json()
+    #         if self.data and "prices" in self.data:
+    #             prices = self.data["prices"]
+    #             if prices and len(self.data) > 1:
+    #                 last_item = prices[-1]
+    #                 self.data_count = last_item.get("id")
+    #                 # self.data_count = self.data[0][-1]["id"]
+    #                 # return self.data_count
+    #                 return self.data_count, pprint(self.data)
+    #                 # return self.data_count
+    #     return None
+        # return pprint(self.data)
     def data_function(self, func, url):
         response = func(url)
         if response.status_code == 200:
             self.data = response.json()
-            if self.data and "prices" in self.data:
-                prices = self.data["prices"]
-                if prices and len(self.data) > 1:
-                    last_item = prices[-1]
-                    self.data_count = last_item.get("id")
-                    # self.data_count = self.data[0][-1]["id"]
-                    # return self.data_count
-                    return self.data_count, pprint(self.data)
-                    # return self.data_count
+            return pprint(self.data)
+
+    def delete_data(self):
+        if self.data and "prices" in self.data:
+            prices = self.data["prices"]
+            if len(prices) > 0:
+                last_item = prices[-1]
+                self.data_count = last_item.get("id")
+                # self.data_count = self.data[0][-1]["id"]
+                # return self.data_count
+                return self.data_count
+                # return self.data_count
         return None
-        # return pprint(self.data)
 
     def update_data(self):
         pass

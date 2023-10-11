@@ -13,7 +13,7 @@ print(data_get_origin)
 # Delete datas I don't need to fit with my desire:
 # print(data_manager.delete_data)
 execute_delete_data = data_manager.data_function(func=requests.delete,
-                                                 url=f"{data_manager.url}/{data_manager.data_count}")
+                                                 url=f"{data_manager.url}/{data_manager.delete_data()}")
 print(execute_delete_data)
 # print(data_manager.data_function(func=requests.delete,
 #                                  url=f"{data_manager.url}/7"))
