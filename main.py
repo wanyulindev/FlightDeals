@@ -3,20 +3,24 @@
 import requests
 from data_manager import DataManager
 
-# Retrieve origin data from my Google sheet:
 data_manager = DataManager()
-data_get_origin = data_manager.data_function(func=requests.get, url=data_manager.url)
-print(data_get_origin)
-# sheet_data = data_manager.get_data()
-# print(sheet_data)
 
-# Delete datas I don't need to fit with my desire:
-# print(data_manager.delete_data)
-execute_delete_data = data_manager.data_function(func=requests.delete,
-                                                 url=f"{data_manager.url}/{data_manager.delete_data()}")
-print(execute_delete_data)
-# print(data_manager.data_function(func=requests.delete,
-#                                  url=f"{data_manager.url}/7"))
+# Retrieve origin data from my Google sheet:
+# data_get_origin = data_manager.data_function(func=requests.get, url=data_manager.url)
+# print(data_get_origin)
+# (Keep code even more clean this way):
+data_manager.retrieve_current_data()
+
+
+# Delete data I don't need to fit with my desire:
+# execute_delete_data = data_manager.data_function(func=requests.delete,
+#                                                  url=f"{data_manager.url}/{data_manager.delete_data()}")
+# print(execute_delete_data)
+# (Rather write it this way): Keep it more clean:
+# data_manager.delete_data()
+
+
+# Add new Row in Google Sheet:
 
 
 

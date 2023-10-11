@@ -1,4 +1,5 @@
 import os
+import requests
 from pprint import pprint
 
 # AUTH = os.environ.get("SHEETY_AUTH")
@@ -52,6 +53,9 @@ class DataManager:
             self.data = response.json()
             return pprint(self.data)
 
+    def retrieve_current_data(self):
+        self.data_function(func=requests.get, url=self.url)
+
     def delete_data(self):
         if self.data and "prices" in self.data:
             prices = self.data["prices"]
@@ -60,12 +64,16 @@ class DataManager:
                 self.data_count = last_item.get("id")
                 # self.data_count = self.data[0][-1]["id"]
                 # return self.data_count
-                return self.data_count
+                self.data_function(func=requests.delete,
+                                   url=f"{self.url}/{self.data_count}")
                 # return self.data_count
         return None
 
-    def update_data(self):
+    def add_data(self):
         pass
+
+
+
 
     # def delete_data(self):
         # for _ in self.data["prices"]:
@@ -82,6 +90,7 @@ class DataManager:
 
 if __name__ == "__main__":
     data_manager = DataManager()
+    print("executed")
 
 
 # Submitting commit! 2023/10/09
