@@ -1,19 +1,22 @@
 #This file will need to use the DataManager,FlightSearch, FlightData,
 # NotificationManager classes to achieve the program requirements.
 import requests
-
 from data_manager import DataManager
 
 # Retrieve origin data from my Google sheet:
 data_manager = DataManager()
-print(data_manager.data_function(func=requests.get, url=data_manager.url))
+data_get_origin = data_manager.data_function(func=requests.get, url=data_manager.url)
+print(data_get_origin)
 # sheet_data = data_manager.get_data()
 # print(sheet_data)
 
 # Delete datas I don't need to fit with my desire:
 # print(data_manager.delete_data)
-print(data_manager.data_function(func=requests.delete, url=f"{data_manager.url}/{data_manager.data_count}"))
-
+execute_delete_data = data_manager.data_function(func=requests.delete,
+                                                 url=f"{data_manager.url}/{data_manager.data_count}")
+print(execute_delete_data)
+# print(data_manager.data_function(func=requests.delete,
+#                                  url=f"{data_manager.url}/7"))
 
 
 

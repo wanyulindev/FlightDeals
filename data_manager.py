@@ -1,4 +1,3 @@
-import requests
 import os
 from pprint import pprint
 
@@ -33,9 +32,19 @@ class DataManager:
 
     def data_function(self, func, url):
         response = func(url)
-        self.data = response.json()
-        self.data_count = self.data[0][-1]["id"]
-        return pprint(self.data)
+        if response.status_code == 200:
+            self.data = response.json()
+            if self.data and "prices" in self.data:
+                prices = self.data["prices"]
+                if prices and len(self.data) > 1:
+                    last_item = prices[-1]
+                    self.data_count = last_item.get("id")
+                    # self.data_count = self.data[0][-1]["id"]
+                    # return self.data_count
+                    return self.data_count, pprint(self.data)
+                    # return self.data_count
+        return None
+        # return pprint(self.data)
 
     def update_data(self):
         pass
@@ -53,7 +62,8 @@ class DataManager:
 
         # self.data_function(func=requests.delete, url=f"{self.url}/{self.data_count}")
 
-
+if __name__ == "__main__":
+    data_manager = DataManager()
 
 
 # Submitting commit! 2023/10/09
