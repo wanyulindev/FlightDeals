@@ -50,27 +50,34 @@ class DataManager:
     def data_function(self, func, url):
         response = func(url)
         if response.status_code == 200:
-            self.data = response.json()
+            self.data = (response.json())["prices"]
             return pprint(self.data)
 
     def retrieve_current_data(self):
         self.data_function(func=requests.get, url=self.url)
 
     def delete_data(self):
-        if self.data and "prices" in self.data:
-            prices = self.data["prices"]
-            if len(prices) > 0:
-                last_item = prices[-1]
-                self.data_count = last_item.get("id")
-                # self.data_count = self.data[0][-1]["id"]
-                # return self.data_count
-                self.data_function(func=requests.delete,
-                                   url=f"{self.url}/{self.data_count}")
-                # return self.data_count
+        if len(self.data) > 0:
+            last_item = self.data[-1]
+            self.data_count = last_item.get("id")
+            # self.data_count = self.data[0][-1]["id"]
+            # return self.data_count
+            self.data_function(func=requests.delete,
+                               url=f"{self.url}/{self.data_count}")
+            # return self.data_count
         return None
 
-    def add_data(self):
-        pass
+    def add_data(self, dpt, arv, d_iata, a_iata):
+        self.data_config ={
+            "price": {
+                'arrival': arv,
+                'arriveIataCode': a_iata,
+                'departIataCode': d_iata,
+                'departure': dpt
+            }
+        }
+        self.data_function(func=requests.post, url=self.url, )
+
 
 
 
