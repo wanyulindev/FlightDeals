@@ -21,7 +21,7 @@ data_manager.retrieve_current_data()
 
 
 # Add new Row in Google Sheet:
-
+# data_manager.add_data(dpt="Taiwan", arv="Los Angeles", d_iata="TPE", a_iata="LAX")
 
 
 

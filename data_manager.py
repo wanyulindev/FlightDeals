@@ -47,10 +47,13 @@ class DataManager:
     #                 # return self.data_count
     #     return None
         # return pprint(self.data)
-    def data_function(self, func, url):
-        response = func(url)
+    def data_function(self, func, url, json=None):
+        response = func(url, json=json)
         if response.status_code == 200:
-            self.data = (response.json())["prices"]
+            self.data = response.json().get("prices", [])
+            # .get("prices", []) tries to access the "prices" key within the dictionary.
+            # If "prices" is present, it returns the associated value.
+            # If "prices" is not present, it returns an empty list ([]) as the default value.
             return pprint(self.data)
 
     def retrieve_current_data(self):
@@ -68,7 +71,7 @@ class DataManager:
         return None
 
     def add_data(self, dpt, arv, d_iata, a_iata):
-        self.data_config ={
+        self.data_config = {
             "price": {
                 'arrival': arv,
                 'arriveIataCode': a_iata,
@@ -76,7 +79,7 @@ class DataManager:
                 'departure': dpt
             }
         }
-        self.data_function(func=requests.post, url=self.url, )
+        self.data_function(func=requests.post, url=self.url, json=self.data_config)
 
 
 
