@@ -54,7 +54,7 @@ class DataManager:
             # .get("prices", []) tries to access the "prices" key within the dictionary.
             # If "prices" is present, it returns the associated value.
             # If "prices" is not present, it returns an empty list ([]) as the default value.
-            return pprint(self.data)
+            return f"Data from GoogleSheet: {pprint(self.data)}"
 
     def retrieve_current_data(self):
         self.data_function(func=requests.get, url=self.url)

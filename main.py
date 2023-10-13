@@ -2,8 +2,10 @@
 # NotificationManager classes to achieve the program requirements.
 import requests
 from data_manager import DataManager
+from flight_search import FlightSearch
 
 data_manager = DataManager()
+flight_search = FlightSearch()
 
 # Retrieve origin data from my Google sheet:
 # data_get_origin = data_manager.data_function(func=requests.get, url=data_manager.url)
@@ -22,6 +24,9 @@ data_manager.retrieve_current_data()
 
 # Add new Row in Google Sheet:
 # data_manager.add_data(dpt="Taiwan", arv="Los Angeles", d_iata="TPE", a_iata="LAX")
+
+
+
 
 
 
