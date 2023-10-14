@@ -4,33 +4,38 @@ import requests
 from data_manager import DataManager
 from flight_search import FlightSearch
 
-data_manager = DataManager()
-flight_search = FlightSearch()
+def main():
+    data_manager = DataManager()
+    flight_search = FlightSearch(data_manager)
 
-# Retrieve origin data from my Google sheet:
-# data_get_origin = data_manager.data_function(func=requests.get, url=data_manager.url)
-# print(data_get_origin)
-# (Keep code even more clean this way):
-data_manager.retrieve_current_data()
-
-
-# Delete data I don't need to fit with my desire:
-# execute_delete_data = data_manager.data_function(func=requests.delete,
-#                                                  url=f"{data_manager.url}/{data_manager.delete_data()}")
-# print(execute_delete_data)
-# (Rather write it this way): Keep it more clean:
-# data_manager.delete_data()
+    # Retrieve origin data from my Google sheet:
+    # data_get_origin = data_manager.data_function(func=requests.get, url=data_manager.url)
+    # print(data_get_origin)
+    # (Keep code even more clean this way):
+    data_manager.retrieve_current_data()
 
 
-# Add new Row in Google Sheet:
-# data_manager.add_data(dpt="Taiwan", arv="Los Angeles", d_iata="TPE", a_iata="LAX")
+    # Delete data I don't need to fit with my desire:
+    # execute_delete_data = data_manager.data_function(func=requests.delete,
+    #                                                  url=f"{data_manager.url}/{data_manager.delete_data()}")
+    # print(execute_delete_data)
+    # (Rather write it this way): Keep it more clean:
+    # data_manager.delete_data()
+
+
+    # Add new Row in Google Sheet:
+    # data_manager.add_data(dpt="Taiwan", arv="Los Angeles", d_iata="TPE", a_iata="LAX")
+
+#----------------------------------------- Google Sheet Finished ---------------------------------------
+
+    flight_search.post_requests()
 
 
 
 
 
-
-
+if __name__ == "__main__":
+    main()
 
 
 # Test it out why can't print out: (FIXED!)
