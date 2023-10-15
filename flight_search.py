@@ -11,7 +11,9 @@ class FlightSearch:
         self.url = "https://api.tequila.kiwi.com/v2/flights_multi"
         self.apikey = os.environ.get("TEQUILA_APIKEY")
         self.header = {
-            "apikey": self.apikey
+            # "accept": "application/json",
+            "apikey": self.apikey,
+            "Content-Type": "application/json"
         }
         self.config = {
             "requests": []
@@ -25,7 +27,7 @@ class FlightSearch:
                 "fly_to": item['arriveIataCode'],
                 "fly_from": item['departIataCode'],
                 "date_from": self.current_date,
-                "date_to": self.current_date,
+                # "date_to": self.current_date,
                 "adults": self.family_members
             }
             self.config["requests"].append(json_data)

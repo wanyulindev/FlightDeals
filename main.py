@@ -12,7 +12,7 @@ def main():
     # data_get_origin = data_manager.data_function(func=requests.get, url=data_manager.url)
     # print(data_get_origin)
     # (Keep code even more clean this way):
-    data_manager.retrieve_current_data()
+    # data_manager.retrieve_current_data()
 
 
     # Delete data I don't need to fit with my desire:
