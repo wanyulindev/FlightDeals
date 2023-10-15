@@ -28,7 +28,8 @@ def main():
 
 #----------------------------------------- Google Sheet Finished ---------------------------------------
 
-    flight_search.post_requests()
+    response = flight_search.post_requests()
+    print(response)
 
 
 
