@@ -1,7 +1,7 @@
 import os
 import requests
 from data_manager import DataManager
-# from pprint import pprint
+from pprint import pprint
 from datetime import datetime, timedelta
 # Somehow, I hit my limit of debugging on both using Search API & Multicity API
 # I gonna use dr.Angela's method: Using Locations API:
@@ -27,7 +27,7 @@ class FlightSearch:
 
 
 
-    def get_requests(self):
+    def get_requests(self, city_name):
         # for item in self.sheet.data:
         #     self.config = {
         #         "requests": []
@@ -52,6 +52,18 @@ class FlightSearch:
         #     print(response.status_code)
         # return response.json()
         # return pprint(response.json())
+
         # Somehow, I hit my limit of debugging on both using Search API & Multicity API
-        # I gonna use dr.Angela's method: Using Locations API:
-        
+        # I gonna use dr.Angela's method: Using Locations API to test it out whether
+        # it's my codes got problem or i just don't have certain flight to book:
+        location_endpoint = f"{TEQUILA_ENDPOINT}/locations/query"
+        headers = {"apikey": TEQUILA_API_KEY}
+        query = {"term": city_name, "location_types": "city"}
+        response = requests.get(url=location_endpoint, headers=headers, params=query)
+        results = response.json()["locations"]
+        # return response.status_code
+        # return pprint(response.json())
+        code = results[0]["code"]
+        return code
+        # Okay, it looks just fine! Let's just test it out why search API got 400 to me:
+        # (Back to the search API part): (Upstairs)

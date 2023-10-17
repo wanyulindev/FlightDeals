@@ -6,7 +6,8 @@ from flight_search import FlightSearch
 
 def main():
     data_manager = DataManager()
-    flight_search = FlightSearch(data_manager)
+    # flight_search = FlightSearch(data_manager)
+    flight_search = FlightSearch()
 
     # Retrieve origin data from my Google sheet:
     # data_get_origin = data_manager.data_function(func=requests.get, url=data_manager.url)
@@ -28,7 +29,7 @@ def main():
 
 #----------------------------------------- Google Sheet Finished ---------------------------------------
 
-    response = flight_search.get_requests()
+    response = flight_search.get_requests("LAX")
     print(response)
 
 
