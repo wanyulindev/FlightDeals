@@ -6,8 +6,6 @@ from flight_search import FlightSearch
 
 def main():
     data_manager = DataManager()
-    # flight_search = FlightSearch(data_manager)
-    flight_search = FlightSearch()
 
     # Retrieve origin data from my Google sheet:
     # data_get_origin = data_manager.data_function(func=requests.get, url=data_manager.url)
@@ -28,9 +26,16 @@ def main():
     # data_manager.add_data(dpt="Taiwan", arv="Los Angeles", d_iata="TPE", a_iata="LAX")
 
 #----------------------------------------- Google Sheet Finished ---------------------------------------
+    # Had test out Tequila and figure out it's working:
+    # flight_search = FlightSearch()
+    # response = flight_search.get_requests("LAX")
+    # print(response)
 
-    response = flight_search.get_requests("LAX")
-    print(response)
+    flight_search = FlightSearch(data_manager)
+    for item in data_manager.data:
+        response = flight_search.get_requests(a_iata=item["arriveIataCode"],
+                                              d_iata=item["departIataCode"])
+        print(response)
 
 
 
