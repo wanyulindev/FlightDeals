@@ -1,8 +1,9 @@
 import os
 import requests
 from data_manager import DataManager
-from pprint import pprint
+# from pprint import pprint
 from datetime import datetime, timedelta
+from flight_data import FlightData
 # Somehow, I hit my limit of debugging on both using Search API & Multicity API
 # I gonna use dr.Angela's method: Using Locations API:
 
@@ -14,7 +15,9 @@ class FlightSearch:
     def __init__(self, data_manager: DataManager):
         self.sheet = data_manager
         # self.url = "https://api.tequila.kiwi.com/v2/search"
-        self.url = "https://tequila-api.kiwi.com/v2/search"
+        # self.url = "https://tequila-api.kiwi.com/v2/search"
+        # self.url = "https://tequila-api.kiwi.com/locations/query"
+        self.url = "https://tequila-api.kiwi.com/search"
         self.apikey = os.environ.get("TEQUILA_APIKEY")
         self.header = {
             "apikey": self.apikey
@@ -38,26 +41,40 @@ class FlightSearch:
             "fly_from": d_iata,
             "date_from": self.fly_from_date,
             "date_to": self.fly_to_date,
-            "nights_in_dst_from": 30,
-            "nights_in_dst_to": 90,
-            "flight_type": "round",
-            "one_for_city": 1,
-            "max_stopovers": 0,
-            "selected_cabins": "W",
-            "mix_with_cabins": "M",
-            "adult_hold_bag": "2,2",
-            "adult_hand_bag": "1,1",
+            # "nights_in_dst_from": 30,
+            # "nights_in_dst_to": 90,
+            # "flight_type": "round",
+            # "one_for_city": 1,
+            # "max_stopovers": 0,
+            # "selected_cabins": "W",
+            # "mix_with_cabins": "M",
+            # "adult_hold_bag": "2,2",
+            # "adult_hand_bag": "1,1",
             "curr": "USD",
             "adults": self.family_members
         }
         # self.config["requests"].append(multicity_request)
         response = requests.get(self.url, headers=self.header, params=self.config)
         # return response.status_code
+        # response.raise_for_status()
         try:
             data = response.json()["data"][0]
         except IndexError:
             print(f"No flights found for {a_iata}.")
             return None
+
+        flight_data = FlightData(
+            price=data["price"],
+            origin_city=data["route"][0]["cityFrom"],
+            origin_airport=data["route"][0]["flyFrom"],
+            destination_city=data["route"][0]["cityTo"],
+            destination_airport=data["route"][0]["flyTo"],
+            out_date=data["route"][0]["local_departure"].split("T")[0],
+            return_date=data["route"][1]["local_departure"].split("T")[0]
+        )
+        print(f"{flight_data.destination_city}: £{flight_data.price}")
+        return flight_data
+
 
 
 
@@ -68,7 +85,7 @@ class FlightSearch:
         # I gonna use dr.Angela's method: Using Locations API to test it out whether
         # it's my codes got problem or i just don't have certain flight to book:
 
-        # location_endpoint = f"{TEQUILA_ENDPOINT}/locations/query"
+        # location_endpoint = f"{TEQUIFLA_ENDPOINT}/locations/query"
         # headers = {"apikey": TEQUILA_API_KEY}
         # query = {"term": city_name, "location_types": "city"}
         # response = requests.get(url=location_endpoint, headers=headers, params=query)
@@ -80,3 +97,7 @@ class FlightSearch:
 
         # Okay, it looks just fine! Let's just test it out why search API got 400 to me:
         # (Back to the search API part): (Upstairs)
+
+# if __name__ == "__main__":
+#     flight_search = FlightSearch()
+
