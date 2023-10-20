@@ -55,6 +55,7 @@ if sheet_data[0]["iataCode"] == "":
     for row in sheet_data:
         row["iataCode"] = flight_search.get_destination_code(row["city"])
     data_manager.destination_data = sheet_data
+    # print(sheet_data)
     data_manager.update_destination_codes()
 
 tomorrow = datetime.now() + timedelta(days=1)
