@@ -1,62 +1,42 @@
 import os
 import requests
 from data_manager import DataManager
-# from pprint import pprint
 from datetime import datetime, timedelta
 from flight_data import FlightData
-# Somehow, I hit my limit of debugging on both using Search API & Multicity API
-# I gonna use dr.Angela's method: Using Locations API:
-
-# TEQUILA_ENDPOINT = "https://tequila-api.kiwi.com"
-# TEQUILA_API_KEY = os.environ.get("TEQUILA_APIKEY")
 
 class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
     def __init__(self, data_manager: DataManager):
         self.sheet = data_manager
-        # self.url = "https://api.tequila.kiwi.com/v2/search"
-        # self.url = "https://tequila-api.kiwi.com/v2/search"
-        # self.url = "https://tequila-api.kiwi.com/locations/query"
-        self.url = "https://tequila-api.kiwi.com/search"
+
+        self.url = "https://tequila-api.kiwi.com/v2/search"
         self.apikey = os.environ.get("TEQUILA_APIKEY")
         self.header = {
             "apikey": self.apikey
         }
-        # self.config = {
-        #     "requests": []
-        # }
-        self.config = {}
-        self.family_members = 2
-        self.fly_from_date = datetime.now().strftime("%d/%m/%Y")
-        self.fly_to_date = (datetime.now() + timedelta(days=180)).strftime("%d/%m/%Y")
-        # Somehow, I hit my limit of debugging on both using Search API & Multicity API
-        # I gonna use dr.Angela's method: Using Locations API: (Downstairs)
+
+    def date_config(self, days):
+        return (datetime.now() + timedelta(days=days)).strftime("%d/%m/%Y")
 
 
     def get_requests(self, a_iata, d_iata):
-    # for item in self.sheet.data:
-        # multicity_request = {
-        self.config = {
+        query = {
             "fly_to": a_iata,
             "fly_from": d_iata,
-            "date_from": self.fly_from_date,
-            "date_to": self.fly_to_date,
-            # "nights_in_dst_from": 30,
-            # "nights_in_dst_to": 90,
-            # "flight_type": "round",
-            # "one_for_city": 1,
-            # "max_stopovers": 0,
-            # "selected_cabins": "W",
-            # "mix_with_cabins": "M",
-            # "adult_hold_bag": "2,2",
-            # "adult_hand_bag": "1,1",
-            "curr": "USD",
-            "adults": self.family_members
+            "date_from": self.date_config(1),
+            "date_to": self.date_config(180),
+            "nights_in_dst_from": 7,
+            "nights_in_dst_to": 28,
+            "flight_type": "round",
+            "one_for_city": 1,
+            "max_stopovers": 0,
+            "curr": "USD"
         }
-        # self.config["requests"].append(multicity_request)
-        response = requests.get(self.url, headers=self.header, params=self.config)
-        # return response.status_code
-        # response.raise_for_status()
+        response = requests.get(
+            url=self.url,
+            headers=self.header,
+            params=query
+        )
         try:
             data = response.json()["data"][0]
         except IndexError:
@@ -75,29 +55,4 @@ class FlightSearch:
         print(f"{flight_data.destination_city}: £{flight_data.price}")
         return flight_data
 
-
-
-
-        # return pprint(response.json())
-
-
-        # Somehow, I hit my limit of debugging on both using Search API & Multicity API
-        # I gonna use dr.Angela's method: Using Locations API to test it out whether
-        # it's my codes got problem or i just don't have certain flight to book:
-
-        # location_endpoint = f"{TEQUIFLA_ENDPOINT}/locations/query"
-        # headers = {"apikey": TEQUILA_API_KEY}
-        # query = {"term": city_name, "location_types": "city"}
-        # response = requests.get(url=location_endpoint, headers=headers, params=query)
-        # results = response.json()["locations"]
-        # # return response.status_code
-        # # return pprint(response.json())
-        # code = results[0]["code"]
-        # return code
-
-        # Okay, it looks just fine! Let's just test it out why search API got 400 to me:
-        # (Back to the search API part): (Upstairs)
-
-# if __name__ == "__main__":
-#     flight_search = FlightSearch()
 
