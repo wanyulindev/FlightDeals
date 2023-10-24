@@ -39,6 +39,7 @@ class FlightSearch:
         )
         try:
             data = response.json()["data"][0]
+            print(pprint(data))
         except IndexError:
             print(f"No flights found for {a_iata}.")
             return None
