@@ -60,6 +60,8 @@ class FlightSearch:
         print(f"{d_iata} --> {a_iata}: USD{data['price']}")
 
 
+
+
 if __name__ == "__main__":
     data_manager = DataManager()
     flight_search = FlightSearch(data_manager)
