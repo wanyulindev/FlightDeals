@@ -3,6 +3,7 @@ import requests
 from data_manager import DataManager
 from datetime import datetime, timedelta
 from flight_data import FlightData
+from pprint import pprint
 
 class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
@@ -25,6 +26,7 @@ class FlightSearch:
             "fly_from": d_iata,
             "date_from": self.date_config(1),
             "date_to": self.date_config(180),
+            # "selected_cabins": "W",
             "nights_in_dst_from": 7,
             "nights_in_dst_to": 28,
             "flight_type": "round",
@@ -44,16 +46,21 @@ class FlightSearch:
             print(f"No flights found for {a_iata}.")
             return None
 
-        flight_data = FlightData(
-            price=data["price"],
-            origin_city=data["route"][0]["cityFrom"],
-            origin_airport=data["route"][0]["flyFrom"],
-            destination_city=data["route"][0]["cityTo"],
-            destination_airport=data["route"][0]["flyTo"],
-            out_date=data["route"][0]["local_departure"].split("T")[0],
-            return_date=data["route"][1]["local_departure"].split("T")[0]
-        )
-        print(f"{flight_data.destination_city}: £{flight_data.price}")
-        return flight_data
+        # flight_data = FlightData(
+        #     price=data["price"],
+        #     origin_city=data["route"][0]["cityFrom"],
+        #     origin_airport=data["route"][0]["flyFrom"],
+        #     destination_city=data["route"][0]["cityTo"],
+        #     destination_airport=data["route"][0]["flyTo"],
+        #     out_date=data["route"][0]["local_departure"].split("T")[0],
+        #     return_date=data["route"][1]["local_departure"].split("T")[0]
+        # )
+        # print(f"{flight_data.destination_city}: USD{flight_data.price}")
+        # return flight_data
+        print(f"{d_iata} --> {a_iata}: USD{data['price']}")
 
+
+if __name__ == "__main__":
+    data_manager = DataManager()
+    flight_search = FlightSearch(data_manager)
 

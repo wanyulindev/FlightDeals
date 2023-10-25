@@ -59,6 +59,5 @@ class FlightSearch:
         return flight_data
 
 
-# for commit
-# for another commit
-# for another commit
+if __name__ == "__main__":
+    flight_search = FlightSearch()

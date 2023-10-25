@@ -71,7 +71,7 @@ class DataManager:
         return None
 
     def add_data(self, dpt, arv, d_iata, a_iata):
-        self.data_config = {
+        data_config = {
             "price": {
                 'arrival': arv,
                 'arriveIataCode': a_iata,
@@ -79,7 +79,7 @@ class DataManager:
                 'departure': dpt
             }
         }
-        self.data_function(func=requests.post, url=self.url, json=self.data_config)
+        self.data_function(func=requests.post, url=self.url, json=data_config)
 
 
 
@@ -98,9 +98,9 @@ class DataManager:
 
         # self.data_function(func=requests.delete, url=f"{self.url}/{self.data_count}")
 
-if __name__ == "__main__":
-    data_manager = DataManager()
-    print("executed")
+# if __name__ == "__main__":
+#     data_manager = DataManager()
+#     print("executed")
 
 
 # Submitting commit! 2023/10/09
