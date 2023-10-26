@@ -1,6 +1,8 @@
 import requests
 from data_manager import DataManager
 from flight_search import FlightSearch
+from notification_manager import NotificationManager
+from flight_data import FlightData
 
 def main():
     data_manager = DataManager()
@@ -30,9 +32,38 @@ def main():
 #-------------------------------------------------------------------------------------------------
     flight_search = FlightSearch(data_manager)
     for item in data_manager.data:
-        response = flight_search.get_requests(a_iata=item["arriveIataCode"],
+        current_flight_price = flight_search.get_requests(a_iata=item["arriveIataCode"],
                                               d_iata=item["departIataCode"])
-        print(response)
+        # print(current_flight_price)
+#------------------------------------------Sending SMS--------------------------------------------
+        compare the prices:
+        lowest_price = data_manager.data["lowestPrice"]
+        a_city = data_manager.data['arrival']
+        a_iata = data_manager.data['arriveIataCode']
+        d_iata = data_manager.data['departIataCode']
+        d_city = data_manager.data['departure']
+        flight_search.data[]
+        flight_search.data[]
+        if current_flight_price < lowest_price:
+            flight_data = FlightData(
+                price=current_flight_price,
+                origin_city=d_city,
+                origin_airport=d_iata,
+                destination_city=a_city,
+                destination_airport=a_iata,
+                out_date=flight_search.data[],
+                return_date=
+            )
+            notification_manager = NotificationManager(flight_data=flight_data,
+                                                       data_manager=data_manager)
+
+
+
+
+
+
+
+
 
 #------------------------------------ Test Search API --------------------------------------------
 # from flight_search_test import FlightSearch

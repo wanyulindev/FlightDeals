@@ -2,12 +2,6 @@ import os
 import requests
 from pprint import pprint
 
-# AUTH = os.environ.get("SHEETY_AUTH")
-# ENDPOINT = os.environ.get("SHEETY_URL")
-# HEADERS = {
-#             "Authorization": AUTH
-#         }
-
 class DataManager:
     #This class is responsible for talking to the Google Sheet.
     def __init__(self):
@@ -16,8 +10,6 @@ class DataManager:
         # self.headers = {
         #     "Authorization": self.auth
         # }
-        # self.get_response = requests.get(self.url, headers=self.headers)
-        # self.get_data()
         self.data = {}
         self.data_count = 0
 

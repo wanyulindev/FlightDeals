@@ -15,6 +15,7 @@ class FlightSearch:
         self.header = {
             "apikey": self.apikey
         }
+        self.data = {}
 
     def date_config(self, days):
         return (datetime.now() + timedelta(days=days)).strftime("%d/%m/%Y")
@@ -40,8 +41,8 @@ class FlightSearch:
             params=query
         )
         try:
-            data = response.json()["data"][0]
-            print(pprint(data))
+            self.data = response.json()["data"][0]
+            # print(pprint(self.data))
         except IndexError:
             print(f"No flights found for {a_iata}.")
             return None
@@ -57,7 +58,8 @@ class FlightSearch:
         # )
         # print(f"{flight_data.destination_city}: USD{flight_data.price}")
         # return flight_data
-        print(f"{d_iata} --> {a_iata}: USD{data['price']}")
+        # print(f"{d_iata} --> {a_iata}: USD{data['price']}")
+        return self.data['price']
 
 
 
