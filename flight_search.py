@@ -59,7 +59,7 @@ class FlightSearch:
         # print(f"{flight_data.destination_city}: USD{flight_data.price}")
         # return flight_data
         # print(f"{d_iata} --> {a_iata}: USD{data['price']}")
-        return self.data['price']
+        return int(self.data['price'])
 
 
 

@@ -36,14 +36,15 @@ def main():
                                               d_iata=item["departIataCode"])
         # print(current_flight_price)
 #------------------------------------------Sending SMS--------------------------------------------
-        # compare the prices:
-        lowest_price = data_manager.data["lowestPrice"]
-        a_city = data_manager.data['arrival']
-        a_iata = data_manager.data['arriveIataCode']
-        d_iata = data_manager.data['departIataCode']
-        d_city = data_manager.data['departure']
-        out_date = flight_search.data["route"][0]['local_departure'][:10]
-        return_date = flight_search.data["route"][1]['local_departure'][:10]
+        lowest_price = int(item['lowestPrice'])
+        a_city = item['arrival']
+        a_iata = item['arriveIataCode']
+        d_iata = item['departIataCode']
+        d_city = item['departure']
+
+        out_date = flight_search.data['route'][0]['local_departure'][:10]
+        return_date = flight_search.data['route'][1]['local_departure'][:10]
+
         flight_data = FlightData(
             price=current_flight_price,
             origin_city=d_city,
@@ -53,10 +54,13 @@ def main():
             out_date=out_date,
             return_date=return_date
         )
-        notification_manager = NotificationManager(flight_data=flight_data,
-                                                   data_manager=data_manager)
-        if current_flight_price < lowest_price:
-            notification_manager.send_sms()
+        notification_manager = NotificationManager()
+        if flight_data.price < lowest_price:
+            notification_manager.send_sms(
+                message=f"{d_iata} --> {a_iata} price dropped:\n"
+                 f"USD{current_flight_price} (dropped from USD{lowest_price})\n"
+                 f"from {out_date} to {return_date}\n"
+            )
             data_manager.update_data(current_flight_price)
 
 #------------------------------------ Test Search API --------------------------------------------
