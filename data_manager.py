@@ -73,7 +73,13 @@ class DataManager:
         }
         self.data_function(func=requests.post, url=self.url, json=data_config)
 
-
+    def update_data(self, lowest_price):
+        data_config = {
+            "price": {
+                'lowestPrice': lowest_price
+            }
+        }
+        self.data_function(func=requests.put, url=self.url, json=data_config)
 
 
 

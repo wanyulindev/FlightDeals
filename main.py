@@ -36,34 +36,28 @@ def main():
                                               d_iata=item["departIataCode"])
         # print(current_flight_price)
 #------------------------------------------Sending SMS--------------------------------------------
-        compare the prices:
+        # compare the prices:
         lowest_price = data_manager.data["lowestPrice"]
         a_city = data_manager.data['arrival']
         a_iata = data_manager.data['arriveIataCode']
         d_iata = data_manager.data['departIataCode']
         d_city = data_manager.data['departure']
-        flight_search.data[]
-        flight_search.data[]
+        out_date = flight_search.data["route"][0]['local_departure'][:10]
+        return_date = flight_search.data["route"][1]['local_departure'][:10]
+        flight_data = FlightData(
+            price=current_flight_price,
+            origin_city=d_city,
+            origin_airport=d_iata,
+            destination_city=a_city,
+            destination_airport=a_iata,
+            out_date=out_date,
+            return_date=return_date
+        )
+        notification_manager = NotificationManager(flight_data=flight_data,
+                                                   data_manager=data_manager)
         if current_flight_price < lowest_price:
-            flight_data = FlightData(
-                price=current_flight_price,
-                origin_city=d_city,
-                origin_airport=d_iata,
-                destination_city=a_city,
-                destination_airport=a_iata,
-                out_date=flight_search.data[],
-                return_date=
-            )
-            notification_manager = NotificationManager(flight_data=flight_data,
-                                                       data_manager=data_manager)
-
-
-
-
-
-
-
-
+            notification_manager.send_sms()
+            data_manager.update_data(current_flight_price)
 
 #------------------------------------ Test Search API --------------------------------------------
 # from flight_search_test import FlightSearch
