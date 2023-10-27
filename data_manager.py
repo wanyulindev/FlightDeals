@@ -81,8 +81,6 @@ class DataManager:
         }
         self.data_function(func=requests.put, url=f"{self.url}/{object_id}", json=data_config)
 
-
-
     # def delete_data(self):
         # for _ in self.data["prices"]:
         #     self.data_count += 1
