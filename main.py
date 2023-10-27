@@ -13,7 +13,6 @@ def main():
     # (Keep code even more clean this way):
     data_manager.retrieve_current_data()
 
-
     # Delete data I don't need to fit with my desire:
     # execute_delete_data = data_manager.data_function(func=requests.delete,
     #                                                  url=f"{data_manager.url}/{data_manager.delete_data()}")
@@ -21,10 +20,8 @@ def main():
     # (Rather write it this way): Keep it more clean:
     # data_manager.delete_data()
 
-
     # Add new Row in Google Sheet:
     # data_manager.add_data(dpt="Taiwan", arv="Los Angeles", d_iata="TPE", a_iata="LAX")
-
 #----------------------------------------- Google Sheet Finished ---------------------------------------
     # flight_search = FlightSearch()
     # response = flight_search.get_requests("LAX")
@@ -61,8 +58,8 @@ def main():
                  f"USD{current_flight_price} (dropped from USD{lowest_price})\n"
                  f"from {out_date} to {return_date}\n"
             )
-            data_manager.update_data(current_flight_price)
-
+            data_manager.update_data(lowest_price=current_flight_price,
+                                     object_id=item['id'])
 #------------------------------------ Test Search API --------------------------------------------
 # from flight_search_test import FlightSearch
 # # from flight_search import FlightSearch
