@@ -81,6 +81,22 @@ class DataManager:
         }
         self.data_function(func=requests.put, url=f"{self.url}/{object_id}", json=data_config)
 
+    def add_datetime(self, date_time):
+        data_config = {
+            "price": {
+                'updated at': date_time
+            }
+        }
+        self.data_function(func=requests.post, url=self.url, json=data_config)
+
+    def update_datetime(self, date_time):
+        data_config = {
+            "price": {
+                'updated at': date_time
+            }
+        }
+        self.data_function(func=requests.post, url=self.url, json=data_config)
+
     # def delete_data(self):
         # for _ in self.data["prices"]:
         #     self.data_count += 1

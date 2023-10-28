@@ -1,4 +1,4 @@
-import requests
+# import requests
 from data_manager import DataManager
 from flight_search import FlightSearch
 from notification_manager import NotificationManager
@@ -60,6 +60,7 @@ def main():
             )
             data_manager.update_data(lowest_price=current_flight_price,
                                      object_id=item['id'])
+            data_manager.
 #------------------------------------ Test Search API --------------------------------------------
 # from flight_search_test import FlightSearch
 # # from flight_search import FlightSearch
