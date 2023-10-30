@@ -73,13 +73,13 @@ class DataManager:
         }
         self.data_function(func=requests.post, url=self.url, json=data_config)
 
-    def update_data(self, lowest_price, object_id):
+    def update_data(self, column, data, object_id=None, ):
         data_config = {
             "price": {
-                'lowestPrice': lowest_price
+                column: data
             }
         }
-        self.data_function(func=requests.put, url=f"{self.url}/{object_id}", json=data_config)
+        self.data_function(func=, url=f"{self.url}/{object_id}", json=data_config)
 
     def add_datetime(self, date_time):
         data_config = {

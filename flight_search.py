@@ -40,12 +40,16 @@ class FlightSearch:
             headers=self.header,
             params=query
         )
-        try:
-            self.data = response.json()["data"][0]
-            # print(pprint(self.data))
-        except IndexError:
-            print(f"No flights found for {a_iata}.")
-            return None
+        # Dr. Angela's solution:
+        # try:
+        #     self.data = response.json()["data"][0]
+        #     # print(pprint(self.data))
+        # except IndexError:
+        #     print(f"No flights found for {a_iata}.")
+        #     return None
+
+        # GPT's solution:
+        self.data = response.json().get(["data"][0], f"No flights found for {a_iata}.")
 
         # flight_data = FlightData(
         #     price=data["price"],
