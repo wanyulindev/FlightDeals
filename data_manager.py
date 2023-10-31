@@ -13,32 +13,6 @@ class DataManager:
         self.data = {}
         self.data_count = 0
 
-    # Instead creating two similar function,
-    # why not create a function but can be used as *arg:
-    # def get_data(self):
-    #     # get_response = requests.get(ENDPOINT, headers=HEADERS)
-    #     get_response = requests.get(self.url, headers=self.headers)
-    #     self.data = get_response.json()
-    #     return pprint(self.data)
-    #     # return self.get_response.text
-    #     # print(self.get_response.json())
-
-    # Let's separate these two function and maintain codes as clean codes:
-    # def data_function(self, func, url):
-    #     response = func(url)
-    #     if response.status_code == 200:
-    #         self.data = response.json()
-    #         if self.data and "prices" in self.data:
-    #             prices = self.data["prices"]
-    #             if prices and len(self.data) > 1:
-    #                 last_item = prices[-1]
-    #                 self.data_count = last_item.get("id")
-    #                 # self.data_count = self.data[0][-1]["id"]
-    #                 # return self.data_count
-    #                 return self.data_count, pprint(self.data)
-    #                 # return self.data_count
-    #     return None
-        # return pprint(self.data)
     def data_function(self, func, url, json=None):
         response = func(url, json=json)
         if response.status_code == 200:
@@ -62,7 +36,7 @@ class DataManager:
             # return self.data_count
         return None
 
-    def add_data(self, dpt, arv, d_iata, a_iata):
+    def add_flight_data(self, dpt, arv, d_iata, a_iata):
         data_config = {
             "price": {
                 'arrival': arv,
@@ -73,15 +47,15 @@ class DataManager:
         }
         self.data_function(func=requests.post, url=self.url, json=data_config)
 
-    def update_data(self, column, data, object_id=None, ):
+    def update_lowest_price_data(self, lowest_price, object_id ):
         data_config = {
             "price": {
-                column: data
+                'lowestPrice': lowest_price
             }
         }
-        self.data_function(func=, url=f"{self.url}/{object_id}", json=data_config)
+        self.data_function(func=requests.put, url=f"{self.url}/{object_id}", json=data_config)
 
-    def add_datetime(self, date_time):
+    def add_datetime_data(self, date_time):
         data_config = {
             "price": {
                 'updated at': date_time
@@ -89,13 +63,13 @@ class DataManager:
         }
         self.data_function(func=requests.post, url=self.url, json=data_config)
 
-    def update_datetime(self, date_time):
+    def update_datetime_data(self, date_time, object_id):
         data_config = {
             "price": {
                 'updated at': date_time
             }
         }
-        self.data_function(func=requests.post, url=self.url, json=data_config)
+        self.data_function(func=requests.put, url=f"{self.url}/{object_id}", json=data_config)
 
     # def delete_data(self):
         # for _ in self.data["prices"]:
