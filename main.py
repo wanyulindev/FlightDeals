@@ -39,44 +39,46 @@ def main():
     # response = flight_search.get_requests("LAX")
     # print(response)
 #-------------------------------------------------------------------------------------------------
-#     flight_search = FlightSearch(data_manager)
-#     for item in data_manager.data:
-#         current_flight_price = flight_search.get_requests(a_iata=item["arriveIataCode"],
-#                                               d_iata=item["departIataCode"])
-#         # print(current_flight_price)
-# #------------------------------------------Sending SMS--------------------------------------------
-#         lowest_price = int(item['lowestPrice'])
-#         a_city = item['arrival']
-#         a_iata = item['arriveIataCode']
-#         d_iata = item['departIataCode']
-#         d_city = item['departure']
-#
-#         out_date = flight_search.data['route'][0]['local_departure'][:10]
-#         return_date = flight_search.data['route'][1]['local_departure'][:10]
-#
-#         flight_data = FlightData(
-#             price=current_flight_price,
-#             origin_city=d_city,
-#             origin_airport=d_iata,
-#             destination_city=a_city,
-#             destination_airport=a_iata,
-#             out_date=out_date,
-#             return_date=return_date
-#         )
-#         notification_manager = NotificationManager()
-#         if flight_data.price < lowest_price:
-#             notification_manager.send_sms(
-#                 message=f"{d_iata} --> {a_iata} price dropped:\n"
-#                  f"USD{current_flight_price} (dropped from USD{lowest_price})\n"
-#                  f"from {out_date} to {return_date}\n"
-#             )
-#             data_manager.update_lowest_price(lowest_price=current_flight_price,
-#                                      object_id=item['id'])
-#             # if item['updatedAt'] == "":
-#             #     data_manager.update_datetime(date_time=CURRENT_DATETIME,
-#             #                                  object_id=item['id'])
-#             # else:
-#             #     data_manager.add_datetime(CURRENT_DATETIME)
+    flight_search = FlightSearch(data_manager)
+    for item in data_manager.data:
+        current_flight_price = flight_search.get_requests(a_iata=item["arriveIataCode"],
+                                              d_iata=item["departIataCode"])
+        # print(current_flight_price)
+#------------------------------------------Sending SMS--------------------------------------------
+        lowest_price = int(item['lowestPrice'])
+        a_city = item['arrival']
+        a_iata = item['arriveIataCode']
+        d_iata = item['departIataCode']
+        d_city = item['departure']
+
+        out_date = flight_search.data['route'][0]['local_departure'][:10]
+        return_date = flight_search.data['route'][1]['local_departure'][:10]
+
+        flight_data = FlightData(
+            price=current_flight_price,
+            origin_city=d_city,
+            origin_airport=d_iata,
+            destination_city=a_city,
+            destination_airport=a_iata,
+            out_date=out_date,
+            return_date=return_date
+        )
+        notification_manager = NotificationManager()
+        if flight_data.price < lowest_price:
+            notification_manager.send_sms(
+                message=f"{d_iata} --> {a_iata} price dropped:\n"
+                 f"USD{current_flight_price} (dropped from USD{lowest_price})\n"
+                 f"from {out_date} to {return_date}\n"
+            )
+            data_manager.update_lowest_price(lowest_price=current_flight_price,
+                                     object_id=item['id'])
+            # if item['updatedAt'] == "":
+            #     data_manager.update_datetime(date_time=CURRENT_DATETIME,
+            #                                  object_id=item['id'])
+            # else:
+            #     data_manager.add_datetime(CURRENT_DATETIME)
+            data_manager.update_datetime(date_time=CURRENT_DATETIME,
+                                         object_id=item["id"])
 
 
 main()
