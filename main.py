@@ -3,6 +3,9 @@ from data_manager import DataManager
 from flight_search import FlightSearch
 from notification_manager import NotificationManager
 from flight_data import FlightData
+from datetime import datetime
+
+CURRENT_DATETIME = datetime.now()
 
 def main():
     data_manager = DataManager()
@@ -58,65 +61,13 @@ def main():
                  f"USD{current_flight_price} (dropped from USD{lowest_price})\n"
                  f"from {out_date} to {return_date}\n"
             )
-            data_manager.update_lowest_price_data(lowest_price=current_flight_price,
+            data_manager.update_lowest_price(lowest_price=current_flight_price,
                                      object_id=item['id'])
-            # data_manager.
-#------------------------------------ Test Search API --------------------------------------------
-# from flight_search_test import FlightSearch
-# # from flight_search import FlightSearch
-# from datetime import datetime, timedelta
-# from data_manager_test import DataManager
-#
-#
-# data_manager = DataManager()
-# sheet_data = data_manager.get_destination_data()
-# flight_search = FlightSearch()
-#
-# ORIGIN_CITY_IATA = "LON"
-#
-# if sheet_data[0]["iataCode"] == "":
-#     for row in sheet_data:
-#         row["iataCode"] = flight_search.get_destination_code(row["city"])
-#     data_manager.destination_data = sheet_data
-#     # print(sheet_data)
-#     data_manager.update_destination_codes()
-#
-# tomorrow = datetime.now() + timedelta(days=1)
-# six_month_from_today = datetime.now() + timedelta(days=(6 * 30))
-#
-# for destination in sheet_data:
-#     flight = flight_search.check_flights(
-#         ORIGIN_CITY_IATA,
-#         destination["iataCode"],
-#         from_time=tomorrow,
-#         to_time=six_month_from_today
-#     )
-#----------------------------------- Test my codes Upstairs again: -------------------------------------
+            # if item['updatedAt'] == "":
+            #     data_manager.update_datetime(date_time=CURRENT_DATETIME,
+            #                                  object_id=item['id'])
+            # else:
+            #     data_manager.add_datetime(CURRENT_DATETIME)
+
 
 main()
-
-
-
-
-
-# if __name__ == "__main__":
-#     main()
-
-
-# Test it out why can't print out: (FIXED!)
-# import os
-# import requests
-#
-# # AUTH = os.environ.get("SHEETY_AUTH")
-# # ENDPOINT = os.environ.get("SHEETY_URL")
-# # HEADERS = {
-# #             "Authorization": AUTH
-# #         }
-#
-# get_response = requests.get("https://api.sheety.co/792a621e9a95f9932e7a7e96c1680077/workoutTracking/workouts")
-# print(get_response.text)
-# # data = get_response.json()
-# # print(data)
-
-
-# for commit

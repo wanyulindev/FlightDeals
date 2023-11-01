@@ -2,8 +2,6 @@ import os
 import requests
 from data_manager import DataManager
 from datetime import datetime, timedelta
-from flight_data import FlightData
-from pprint import pprint
 
 class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
@@ -41,28 +39,16 @@ class FlightSearch:
             params=query
         )
         # Dr. Angela's solution:
-        # try:
-        #     self.data = response.json()["data"][0]
-        #     # print(pprint(self.data))
-        # except IndexError:
-        #     print(f"No flights found for {a_iata}.")
-        #     return None
+        try:
+            self.data = response.json()["data"][0]
+            # print(pprint(self.data))
+        except IndexError:
+            print(f"No flights found for {a_iata}.")
+            return None
 
         # GPT's solution:
-        self.data = response.json().get(["data"][0], f"No flights found for {a_iata}.")
+        # self.data = response.json().get(["data"][0], f"No flights found for {a_iata}.")
 
-        # flight_data = FlightData(
-        #     price=data["price"],
-        #     origin_city=data["route"][0]["cityFrom"],
-        #     origin_airport=data["route"][0]["flyFrom"],
-        #     destination_city=data["route"][0]["cityTo"],
-        #     destination_airport=data["route"][0]["flyTo"],
-        #     out_date=data["route"][0]["local_departure"].split("T")[0],
-        #     return_date=data["route"][1]["local_departure"].split("T")[0]
-        # )
-        # print(f"{flight_data.destination_city}: USD{flight_data.price}")
-        # return flight_data
-        # print(f"{d_iata} --> {a_iata}: USD{data['price']}")
         return int(self.data['price'])
 
 

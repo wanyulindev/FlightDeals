@@ -47,7 +47,7 @@ class DataManager:
         }
         self.data_function(func=requests.post, url=self.url, json=data_config)
 
-    def update_lowest_price_data(self, lowest_price, object_id ):
+    def update_lowest_price(self, lowest_price, object_id ):
         data_config = {
             "price": {
                 'lowestPrice': lowest_price
@@ -55,41 +55,25 @@ class DataManager:
         }
         self.data_function(func=requests.put, url=f"{self.url}/{object_id}", json=data_config)
 
-    def add_datetime_data(self, date_time):
+    def add_datetime(self, date_time):
         data_config = {
             "price": {
-                'updated at': date_time
+                'updatedAt': date_time
             }
         }
         self.data_function(func=requests.post, url=self.url, json=data_config)
 
-    def update_datetime_data(self, date_time, object_id):
+    def update_datetime(self, date_time, object_id):
         data_config = {
             "price": {
-                'updated at': date_time
+                'updatedAt': date_time
             }
         }
         self.data_function(func=requests.put, url=f"{self.url}/{object_id}", json=data_config)
 
-    # def delete_data(self):
-        # for _ in self.data["prices"]:
-        #     self.data_count += 1
-        # self.data_count = self.data[0][-1]["id"]
-        # print(self.data_count)
-        # for _ in range(self.data_count):
-        #     self.data_function(func=requests.delete, url=f"{self.url}/{self.data_count}")
-        #     if self.data_count > 1:
-        #         self.data_count -= 1
-        # return pprint(self.data)
 
-        # self.data_function(func=requests.delete, url=f"{self.url}/{self.data_count}")
 
 # if __name__ == "__main__":
 #     data_manager = DataManager()
 #     print("executed")
 
-
-# Submitting commit! 2023/10/09
-# Submitting commit! 2023/10/08
-# It's time to review OOP to make it more clear idea to my knowledge!
-# (151)
