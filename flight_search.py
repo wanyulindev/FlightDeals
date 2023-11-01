@@ -47,7 +47,13 @@ class FlightSearch:
             return None
 
         # GPT's solution:
-        # self.data = response.json().get(["data"][0], f"No flights found for {a_iata}.")
+        # If the key "data" doesn't exist in the response,
+        # the get method will return None by default.
+        # self.data = response.json().get("data")
+        # if self.data is not None:
+        #     pass
+        # else:
+        #     print(f"No flights found for {a_iata}.")
 
         return int(self.data['price'])
 

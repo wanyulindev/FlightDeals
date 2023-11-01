@@ -63,11 +63,11 @@ def main():
             )
             data_manager.update_lowest_price(lowest_price=current_flight_price,
                                      object_id=item['id'])
-            # if item['updatedAt'] == "":
-            #     data_manager.update_datetime(date_time=CURRENT_DATETIME,
-            #                                  object_id=item['id'])
-            # else:
-            #     data_manager.add_datetime(CURRENT_DATETIME)
+            if item['updatedAt'] == "":
+                data_manager.update_datetime(date_time=CURRENT_DATETIME,
+                                             object_id=item['id'])
+            else:
+                data_manager.add_datetime(CURRENT_DATETIME)
 
 
 main()
